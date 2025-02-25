@@ -3,8 +3,6 @@
 This repository contains my solutions to algorithmic problems from platforms like:
 - [LeetCode](https://leetcode.com/)
 - [Codeforces](https://codeforces.com/)
-- [AtCoder](https://atcoder.jp/)
-- [UVA](https://onlinejudge.org/)
 
 ## Structure
 Each solution file contains:
