@@ -4,6 +4,8 @@ This repository contains my solutions to algorithmic problems from platforms lik
 - [LeetCode](https://leetcode.com/)
 - [Codeforces](https://codeforces.com/)
 
+and my trails to implement famous and widely used algorithms
+
 ## Structure
 Each solution file contains:
 - The **problem link**
