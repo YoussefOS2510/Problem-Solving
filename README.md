@@ -11,6 +11,5 @@ Each solution file contains:
 - The **problem link**
 - The **solution in the respective language**
 
-## Contribution
-Feel free to fork or submit pull requests!
+### Problems Solved: 0
 
