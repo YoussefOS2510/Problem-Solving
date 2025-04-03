@@ -16,15 +16,23 @@ jobs:
       - name: Count total manual commits (problems solved)
         id: problem_count
         run: |
-          # Count commits that were made by humans, excluding bot commits (like GitHub Actions)
-          TOTAL_COMMITS=$(git log --oneline --pretty=format:"%H %an" | grep -v "github-actions" | wc -l)
+          # Ensure that git is available and the repository is checked out
+          git fetch --all
 
-          # Export the variable to make it available to the next steps
+          # Count commits that were made by humans (excluding bot commits like GitHub Actions)
+          TOTAL_COMMITS=$(git log --oneline --pretty=format:"%H %an" | grep -v "github-actions" | wc -l)
+          
+          # If no commits found, set count to 0
+          if [ -z "$TOTAL_COMMITS" ]; then
+            TOTAL_COMMITS=0
+          fi
+
+          # Set the new count to the variable
           echo "NEW_COUNT=$TOTAL_COMMITS" >> $GITHUB_ENV
 
       - name: Update Problems Solved Counter in README.md
         run: |
-          # Ensure the variable is available
+          # Ensure the variable is available and debug the value
           echo "Problems Solved: $NEW_COUNT"
           
           # Update the 'Problems Solved' line in README.md
