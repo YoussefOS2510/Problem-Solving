@@ -37,7 +37,7 @@ jobs:
           git config --global user.email "github-actions@github.com"
     
           # Set up authentication using GitHub Token
-          echo "${{ secrets.GH_TOKEN }}" | git credential approve
+          echo "${{ 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 }}" | git credential approve
 
           # Commit changes if there are any
           git add README.md
