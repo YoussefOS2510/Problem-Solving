@@ -19,15 +19,15 @@ jobs:
           # Ensure that git is available and the repository is checked out
           git fetch --all
 
-          # Count commits that were made by humans (excluding bot commits like GitHub Actions)
+          # Count commits made by humans (excluding bot commits like GitHub Actions)
           TOTAL_COMMITS=$(git log --oneline --pretty=format:"%H %an" | grep -v "github-actions" | wc -l)
-          
+
           # If no commits found, set count to 0
           if [ -z "$TOTAL_COMMITS" ]; then
             TOTAL_COMMITS=0
           fi
 
-          # Set the new count to the variable
+          # Ensure the correct variable is exported
           echo "NEW_COUNT=$TOTAL_COMMITS" >> $GITHUB_ENV
 
       - name: Update Problems Solved Counter in README.md
