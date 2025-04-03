@@ -19,8 +19,7 @@ jobs:
           # Count commits that were made by humans, excluding bot commits (like GitHub Actions)
           TOTAL_COMMITS=$(git log --oneline --pretty=format:"%H %an" | grep -v "github-actions" | wc -l)
 
-          # Subtract 5, ensuring no negative values
-          NEW_COUNT=$((TOTAL_COMMITS < 5 ? 0 : TOTAL_COMMITS - 5))
+          NEW_COUNT=$(TOTAL_COMMITS)
           
           echo "NEW_COUNT=$NEW_COUNT" >> $GITHUB_ENV
 
@@ -32,10 +31,14 @@ jobs:
       - name: Commit and Push Changes
         run: |
           # Configure Git
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          
-          # Commit changes if there are any
-          git add README.md
-          git commit -m "Update problems solved count to $NEW_COUNT" || exit 0  # Exit 0 to avoid failing if there's no change
-          git push
+            git config --global user.name "github-actions"
+            git config --global user.email "github-actions@github.com"
+    
+            # Set up authentication using GitHub Token
+            echo "${{ secrets.GH_TOKEN }}" | git credential approve
+
+            # Commit changes if there are any
+            git add README.md
+            git commit -m "Update problems solved count to $NEW_COUNT" || exit 0  # Exit 0 to avoid failing if there's no change
+            git push https://github.com/YoussefOS2510/Problem-Solving.git
+
