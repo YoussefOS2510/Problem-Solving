@@ -16,23 +16,26 @@ jobs:
       - name: Count total manual commits (problems solved)
         id: problem_count
         run: |
-          # Count commits that were NOT made by GitHub Actions
+          # Count commits that were made by humans, excluding bot commits (like GitHub Actions)
           TOTAL_COMMITS=$(git log --oneline --pretty=format:"%H %an" | grep -v "github-actions" | wc -l)
 
-          # Ensure the count doesn't go negative
-          NEW_COUNT=$(TOTAL_COMMITS)
+          # Subtract 5, ensuring no negative values
+          NEW_COUNT=$((TOTAL_COMMITS < 5 ? 0 : TOTAL_COMMITS - 5))
           
           echo "NEW_COUNT=$NEW_COUNT" >> $GITHUB_ENV
 
       - name: Update Problems Solved Counter in README.md
         run: |
-          FILE="README.md"
-          sed -i "s/### Problems Solved: .*/### Problems Solved: $NEW_COUNT/" "$FILE"
+          # Update the 'Problems Solved' line in README.md
+          sed -i "s/### Problems Solved: .*/### Problems Solved: $NEW_COUNT/" README.md
 
       - name: Commit and Push Changes
         run: |
+          # Configure Git
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
+          
+          # Commit changes if there are any
           git add README.md
-          git commit -m "Update problems solved count to $NEW_COUNT" || exit 0
+          git commit -m "Update problems solved count to $NEW_COUNT" || exit 0  # Exit 0 to avoid failing if there's no change
           git push
