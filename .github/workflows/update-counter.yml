@@ -20,7 +20,7 @@ jobs:
           TOTAL_COMMITS=$(git log --oneline --pretty=format:"%H %an" | grep -v "github-actions" | wc -l)
 
           # Ensure the count doesn't go negative
-          NEW_COUNT=$((TOTAL_COMMITS < 5 ? 0 : TOTAL_COMMITS - 5))
+          NEW_COUNT=$(TOTAL_COMMITS)
           
           echo "NEW_COUNT=$NEW_COUNT" >> $GITHUB_ENV
 
