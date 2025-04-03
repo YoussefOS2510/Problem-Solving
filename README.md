@@ -11,5 +11,5 @@ Each solution file contains:
 - The **problem link**
 - The **solution in the respective language**
 
-### Problems Solved: 0
+### Problems Solved: 16
 
